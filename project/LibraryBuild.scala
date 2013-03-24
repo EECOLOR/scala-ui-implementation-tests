@@ -29,6 +29,8 @@ object LibraryBuild extends Build {
     settings = 
       Project.defaultSettings ++ 
       defaultSettings ++ 
-      eclipseSettings)
+      eclipseSettings) dependsOn scalaUiProject
+
+  lazy val scalaUiProject = RootProject(file("../scala-ui"))
 }
 
