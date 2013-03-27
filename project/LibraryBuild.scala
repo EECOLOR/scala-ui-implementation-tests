@@ -9,13 +9,15 @@ object LibraryBuild extends Build {
   val scalaVersion = "2.10.1"
     
   val appDependencies = Seq(
-    "org.specs2" % "specs2_2.10" % "1.13" % "test",
+     "org.specs2" %% "specs2" % "1.14" % "test",
+     "junit" % "junit" % "4.11" % "test",
     "org.scala-lang" % "scala-compiler" % scalaVersion % "test")
 
   val defaultSettings = Seq(
     libraryDependencies ++= appDependencies,
     Keys.scalaVersion := scalaVersion,
     scalacOptions += "-feature",
+    fork := true,
     resolvers ++= Seq("snapshots" at "http://oss.sonatype.org/content/repositories/snapshots",
       "releases" at "http://oss.sonatype.org/content/repositories/releases"))
 
@@ -29,8 +31,9 @@ object LibraryBuild extends Build {
     settings = 
       Project.defaultSettings ++ 
       defaultSettings ++ 
-      eclipseSettings) dependsOn scalaUiProject
+      eclipseSettings) dependsOn scalaUiJavaFxProject dependsOn scalaUiProject
 
+  lazy val scalaUiJavaFxProject = RootProject(file("../scala-ui-javafx"))
   lazy val scalaUiProject = RootProject(file("../scala-ui"))
 }
 
