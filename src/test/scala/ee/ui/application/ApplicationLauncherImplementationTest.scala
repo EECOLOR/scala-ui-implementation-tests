@@ -9,8 +9,9 @@ import scala.concurrent.Future
 import scala.concurrent._
 import scala.concurrent.ExecutionContext.Implicits.global
 import org.specs2.mutable.Specification
+import utils.ApplicationLauncherUtils
 
-class ApplicationLauncherImplementationTest extends Specification with NoTimeConversions {
+class ApplicationLauncherImplementationTest extends Specification with NoTimeConversions with ApplicationLauncherUtils {
   //xonly
   isolated
 
@@ -25,28 +26,6 @@ class ApplicationLauncherImplementationTest extends Specification with NoTimeCon
     def createApplication() = new TestApplication with Engine
   }
 
-  def startAndExitApplication(applicationLauncher: ApplicationLauncher) = {
-    val application = applicationLauncher.application
-
-    inThread {
-      applicationLauncher.main(Array.empty[String])
-    }
-
-    val launchedApplication = Await.result(application, 1.seconds)
-
-    launchedApplication.exit()
-  }
-
-  def waitFor(application: Future[Application]) =
-    Await.result(application, 500.milliseconds)
-
-  def inThread(code: => Unit): Unit = {
-    val executing = future (code)
-    future {
-      Await.ready(executing, 1.second)
-    }
-  }
-  
   "ApplicationLauncherImplementation" should {
     "extend ApplicationLauncher and provide an implementation for launch" in {
 
@@ -60,11 +39,11 @@ class ApplicationLauncherImplementationTest extends Specification with NoTimeCon
 
       var blocked = true
       inThread {
-        launcher.main(Array.empty[String])
+        launcher.main(Array.empty)
         blocked = false
       }
 
-      Thread.sleep(100)
+      Thread.sleep(500)
       
       blocked === true
 
@@ -82,13 +61,7 @@ class ApplicationLauncherImplementationTest extends Specification with NoTimeCon
         def createApplication() = createdApplication
       }
 
-      val application = launcher.application
-
-      inThread {
-        launcher.main(Array.empty[String])
-      }
-
-      val createdApplication = Await.result(application, 1.seconds)
+      val createdApplication = start(launcher, 1.second)
 
       createdApplication.exit()
 
@@ -104,11 +77,7 @@ class ApplicationLauncherImplementationTest extends Specification with NoTimeCon
         }
       }
 
-      inThread {
-        launcher.main(Array.empty[String])
-      }
-
-      val launchedApplication = waitFor(launcher.application)
+      val launchedApplication = start(launcher, 1.second)
       
       startCalled === true
 

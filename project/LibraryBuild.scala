@@ -31,7 +31,7 @@ object LibraryBuild extends Build {
     settings = 
       Project.defaultSettings ++ 
       defaultSettings ++ 
-      eclipseSettings) dependsOn scalaUiJavaFxProject dependsOn scalaUiProject
+      eclipseSettings) dependsOn (scalaUiProject % "test->test;compile->compile", scalaUiJavaFxProject)
 
   lazy val scalaUiJavaFxProject = RootProject(file("../scala-ui-javafx"))
   lazy val scalaUiProject = RootProject(file("../scala-ui"))
