@@ -12,7 +12,9 @@ object Test5_ShowWindow10Seconds extends ApplicationLauncherTestBase {
         override def start(window:Window) = {
           
           window.title = "test"
-          
+          window.width = 100
+          window.height = 100
+            
           show(window)
           timer(10.seconds) {
             hide(window)
