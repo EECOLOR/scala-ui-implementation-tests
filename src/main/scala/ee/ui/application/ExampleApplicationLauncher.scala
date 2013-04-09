@@ -4,6 +4,7 @@ import ee.ui.implementation.EngineImplementationContract
 import ee.ui.implementation.WindowImplementationHandler
 import ee.ui.implementation.ExitHandler
 import java.util.concurrent.CountDownLatch
+import ee.ui.implementation.contracts.WindowContract
 
 abstract class ExampleApplicationLauncher extends ApplicationLauncher {
 
@@ -19,8 +20,8 @@ abstract class ExampleApplicationLauncher extends ApplicationLauncher {
 
   trait ExampleEngine extends EngineImplementationContract {
     val windowImplementationHandler = new WindowImplementationHandler {
-      def hide(window: ee.ui.display.Window): Unit = ???
-      def show(window: ee.ui.display.Window): Unit = ???
+      def hide(windowContract: WindowContract): Unit = ???
+      def show(windowContract: WindowContract): Unit = ???
     }
     val exitHandler = new ExitHandler {
       def exit(application:Application):Unit = {
