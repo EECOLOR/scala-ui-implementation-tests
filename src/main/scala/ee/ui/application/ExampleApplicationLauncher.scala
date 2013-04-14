@@ -29,6 +29,6 @@ abstract class ExampleApplicationLauncher extends ApplicationLauncher {
         applicationRunning.countDown()
       }
     }
-    val settings = new ApplicationSettings(application)
+    val settings = new ApplicationSettings
   }
 }
