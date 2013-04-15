@@ -17,16 +17,17 @@ object LibraryBuild extends Build {
   def singleTests(tests: Seq[TestDefinition]) =
     tests filter { test =>
       //println(test.name)
-      test.name == "ee.ui.application.ApplicationLauncherTests.Test5_ShowWindow10Seconds"
+      //test.name == "ee.ui.application.ApplicationLauncherTests.Test5_ResizingWindow"
+      test.name == "ee.ui.application.ApplicationLauncherTests.Test6_DancingRectangle"
     } map { test =>
       new Group(
         name = test.name,
         tests = Seq(test),
-        runPolicy = SubProcess(javaOptions = Seq.empty[String]))//Seq("-Xdebug", "-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005")))
+        runPolicy = SubProcess(javaOptions = Seq.empty[String])) //Seq("-Xdebug", "-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005")))
     }
 
   println("Note to self: you disabled some tests in LibraryBuild.scala")
-    
+
   val defaultSettings = Seq(
     libraryDependencies ++= appDependencies,
     Keys.scalaVersion := scalaVersion,
