@@ -18,7 +18,8 @@ object LibraryBuild extends Build {
     tests filter { test =>
       //println(test.name)
       //test.name == "ee.ui.application.ApplicationLauncherTests.Test5_ResizingWindow"
-      test.name == "ee.ui.application.ApplicationLauncherTests.Test6_DancingRectangle"
+      //test.name == "ee.ui.application.ApplicationLauncherTests.Test6_DancingRectangle"
+      test.name == "ee.ui.application.ApplicationLauncherTests.Test7_TextField"
     } map { test =>
       new Group(
         name = test.name,

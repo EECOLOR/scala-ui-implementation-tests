@@ -14,7 +14,7 @@ import ee.ui.primitives.transformation.Shear
 import ee.ui.primitives.transformation.Shear
 
 object Test6_DancingRectangle extends ApplicationLauncherTestBase {
-  ExecutionContext
+
   "show a rectangle that dances across the screen" in {
 
     val launcher = new TestApplicationLauncher {
@@ -30,15 +30,6 @@ object Test6_DancingRectangle extends ApplicationLauncherTestBase {
             height = 100
             fill = Color(0xFF0000)
           }
-
-          val rectangle2 = new Rectangle with Position with Size {
-            stroke = Color(0x0000FF)
-          }
-
-          rectangle2.x <== rectangle.bounds map (_.x)
-          rectangle2.y <== rectangle.bounds map (_.y)
-          rectangle2.width <== rectangle.bounds map (_.width)
-          rectangle2.height <== rectangle.bounds map (_.height)
 
           window.scene = new Scene {
             root = rectangle
@@ -71,10 +62,6 @@ object Test6_DancingRectangle extends ApplicationLauncherTestBase {
               }
               Thread sleep 40
             }
-          }
-
-          rectangle.y.change {
-            //println(_)
           }
 
           timer(11.seconds) {
