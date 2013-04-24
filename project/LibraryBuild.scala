@@ -38,7 +38,9 @@ object LibraryBuild extends Build {
     //javaOptions in (Test) += "-Xdebug",
     //javaOptions in (Test) += "-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005",
     resolvers ++= Seq("snapshots" at "http://oss.sonatype.org/content/repositories/snapshots",
-      "releases" at "http://oss.sonatype.org/content/repositories/releases"))
+      "releases" at "http://oss.sonatype.org/content/repositories/releases"),
+    javaHome := Some(file("/home/eecolor/opt/jdk1.8.0-b86/"))    
+  )
 
   val eclipseSettings = Seq(
     EclipseKeys.withSource := true,
